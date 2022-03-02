@@ -43,7 +43,7 @@ def welcome():
 
 @app.route("/api/v1.0/precipitation")
 def precipitation():
-    # Create our session (link) from Python to the DB
+    # Create session
     session = Session(engine)
 
     """Return a list of all Precipitation Data"""
@@ -54,7 +54,7 @@ def precipitation():
 
     session.close()
     
-    # Convert the list to Dictionary
+    # Convert list to Dictionary
     all_prcp = []
     for date,prcp  in results:
         prcp_dict = {}
@@ -68,7 +68,7 @@ def precipitation():
 
 @app.route("/api/v1.0/stations")
 def stations():
-    # Create our session (link) from Python to the DB
+    # Create session
     session = Session(engine)
 
     """Return a list of all Stations"""
@@ -78,14 +78,14 @@ def stations():
 
     session.close()
 
-    # Convert list of tuples into normal list
+    # Convert tuples into list
     all_stations = list(np.ravel(results))
 
     return jsonify(all_stations)
 
 @app.route("/api/v1.0/tobs")
 def tobs():
-    # Create our session (link) from Python to the DB
+    # Create session
     session = Session(engine)
 
     """Return a list of all TOBs"""
@@ -100,7 +100,7 @@ def tobs():
 
    
 
-    # Convert the list to Dictionary
+    # Convert list to Dictionary
     all_tobs = []
     for prcp, date,tobs in results:
         tobs_dict = {}
@@ -126,7 +126,7 @@ def Start_date(start_date):
 
     session.close()
 
-    # Create a dictionary from the row data and append to a list of start_date_tobs
+    # Create dictionary from row data and append to list of start_date_tobs
     start_date_tobs = []
     for min, avg, max in results:
         start_date_tobs_dict = {}
@@ -138,7 +138,7 @@ def Start_date(start_date):
 
 @app.route("/api/v1.0/<start_date>/<end_date>")
 def Start_end_date(start_date, end_date):
-    # Create our session (link) from Python to the DB
+    # Create session
     session = Session(engine)
 
     """Return a list of min, avg and max tobs for start and end dates"""
@@ -149,7 +149,7 @@ def Start_end_date(start_date, end_date):
 
     session.close()
   
-    # Create a dictionary from the row data and append to a list of start_end_date_tobs
+    # Create dictionary from row data and append to list of start_end_date_tobs
     start_end_tobs = []
     for min, avg, max in results:
         start_end_tobs_dict = {}
