@@ -53,9 +53,6 @@ def precipitation():
         all()
 
     session.close()
-
-
-   
     
     # Convert the list to Dictionary
     all_prcp = []
@@ -118,7 +115,7 @@ def tobs():
     
 @app.route("/api/v1.0/<start_date>")
 def Start_date(start_date):
-    # Create our session (link) from Python to the DB
+    # Create session
     session = Session(engine)
 
     """Return a list of min, avg and max tobs for a start date"""
