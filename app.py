@@ -34,11 +34,9 @@ def welcome():
 
 @app.route("/api/v1.0/precipitation")
 def precipitation():
-    # Create our session (link) from Python to the DB
+
     session = Session(engine)
 
-    """Return a list of all Precipitation Data"""
-    # Query all Precipitation
     results = session.query(Measurement.date, Measurement.prcp).\
         filter(Measurement.date >= "2016-08-24").\
         all()
@@ -61,7 +59,6 @@ def precipitation():
 def stations():
     session = Session(engine)
 
-    """Return a list of all Stations"""
     results = session.query(Station.station).\
                  order_by(Station.station).all()
 
@@ -74,8 +71,6 @@ def stations():
 @app.route("/api/v1.0/tobs")
 def tobs():
     session = Session(engine)
-
-    """Return a list of all TOBs"""
 
     results = session.query(Measurement.date,  Measurement.tobs,Measurement.prcp).\
                 filter(Measurement.date >= '2016-08-23').\
@@ -101,9 +96,7 @@ def tobs():
 def Start_date(start_date):
     session = Session(engine)
 
-    """Return a list of min, avg and max tobs for a start date"""
-    # Query all tobs
-
+   
     results = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
                 filter(Measurement.date >= start_date).all()
 
@@ -121,8 +114,6 @@ def Start_date(start_date):
 @app.route("/api/v1.0/<start_date>/<end_date>")
 def Start_end_date(start_date, end_date):
     session = Session(engine)
-
-    """Return a list of min, avg and max tobs for start and end dates"""
 
     results = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
                 filter(Measurement.date >= start_date).filter(Measurement.date <= end_date).all()
